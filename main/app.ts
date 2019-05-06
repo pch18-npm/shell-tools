@@ -54,12 +54,17 @@ export default class Shell {
     static async spawnString(cmd: string) {
         return (await Shell.spawn(cmd)).toString()
     }
-    static async spawnMessage(cmd: string, msg: string, onErrorExit = false) {
-        return await Shell.processMessage(async () => {
-            await Shell.spawn(cmd)
+    static async processSpawn(cmd: string | string[], msg: string, onErrorExit = false) {
+        if (typeof cmd === 'string') {
+            cmd = [cmd]
+        }
+        return await Shell.processDone(async () => {
+            for (let i of cmd) {
+                await Shell.spawn(i)
+            }
         }, msg, onErrorExit)
     }
-    static async processMessage(proc: () => any, msg: string, onErrorExit = false) {
+    static async processDone(proc: () => any, msg: string, onErrorExit = false) {
         Shell.write(msg + ' ...... ', 'yellow')
         try {
             await proc()

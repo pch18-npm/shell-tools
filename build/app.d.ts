@@ -9,8 +9,8 @@ export default class Shell {
     static writeln(text: string, color?: color): Promise<void>;
     static spawn(cmd: string, showLog?: boolean): Promise<Buffer>;
     static spawnString(cmd: string): Promise<string>;
-    static spawnMessage(cmd: string, msg: string, onErrorExit?: boolean): Promise<boolean>;
-    static processMessage(proc: () => any, msg: string, onErrorExit?: boolean): Promise<boolean>;
+    static processSpawn(cmd: string | string[], msg: string, onErrorExit?: boolean): Promise<boolean>;
+    static processDone(proc: () => any, msg: string, onErrorExit?: boolean): Promise<boolean>;
     static askCheckBox<T extends string>(question: string, selections: {
         [x in T]: string;
     } | T[], defaultSelect?: T[]): Promise<T[]>;

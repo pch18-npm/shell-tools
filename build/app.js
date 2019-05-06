@@ -64,14 +64,19 @@ class Shell {
             return (yield Shell.spawn(cmd)).toString();
         });
     }
-    static spawnMessage(cmd, msg, onErrorExit = false) {
+    static processSpawn(cmd, msg, onErrorExit = false) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield Shell.processMessage(() => __awaiter(this, void 0, void 0, function* () {
-                yield Shell.spawn(cmd);
+            if (typeof cmd === 'string') {
+                cmd = [cmd];
+            }
+            return yield Shell.processDone(() => __awaiter(this, void 0, void 0, function* () {
+                for (let i of cmd) {
+                    yield Shell.spawn(i);
+                }
             }), msg, onErrorExit);
         });
     }
-    static processMessage(proc, msg, onErrorExit = false) {
+    static processDone(proc, msg, onErrorExit = false) {
         return __awaiter(this, void 0, void 0, function* () {
             Shell.write(msg + ' ...... ', 'yellow');
             try {

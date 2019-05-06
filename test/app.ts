@@ -20,9 +20,9 @@ const selections = {
 
     console.log(await shell.spawnString('curl baidu.com'))
 
-    console.log(await shell.spawnMessage('curl baidu.com', '访问百度网址'))
+    console.log(await shell.processSpawn('curl baidu.com', '访问百度网址'))
 
-    console.log(await shell.spawnMessage('curl baidu.com1', '访问错误网址'))
+    console.log(await shell.processSpawn(['curl baidu.com', 'curl qq.comm'], '访问错误网址'))
 
     console.log(await shell.askCheckBox(
         '多选框请选择',
