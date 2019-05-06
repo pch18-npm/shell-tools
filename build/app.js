@@ -66,9 +66,16 @@ class Shell {
     }
     static spawnMessage(cmd, msg, onErrorExit = false) {
         return __awaiter(this, void 0, void 0, function* () {
+            return yield Shell.processMessage(() => __awaiter(this, void 0, void 0, function* () {
+                yield Shell.spawn(cmd);
+            }), msg, onErrorExit);
+        });
+    }
+    static processMessage(proc, msg, onErrorExit = false) {
+        return __awaiter(this, void 0, void 0, function* () {
             Shell.write(msg + ' ...... ', 'yellow');
             try {
-                yield Shell.spawn(cmd);
+                yield proc();
                 Shell.writeln('【成功】', 'green');
                 return true;
             }

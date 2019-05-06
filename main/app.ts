@@ -55,9 +55,14 @@ export default class Shell {
         return (await Shell.spawn(cmd)).toString()
     }
     static async spawnMessage(cmd: string, msg: string, onErrorExit = false) {
+        return await Shell.processMessage(async () => {
+            await Shell.spawn(cmd)
+        }, msg, onErrorExit)
+    }
+    static async processMessage(proc: () => any, msg: string, onErrorExit = false) {
         Shell.write(msg + ' ...... ', 'yellow')
         try {
-            await Shell.spawn(cmd)
+            await proc()
             Shell.writeln('【成功】', 'green')
             return true
         } catch (e) {
@@ -68,6 +73,7 @@ export default class Shell {
             return false
         }
     }
+
 
     static async askCheckBox<T extends string>(
         question: string,

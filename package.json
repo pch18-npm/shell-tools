@@ -1,6 +1,6 @@
 {
   "name": "@pch18/shell-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "pch18",
   "keywords": [],
   "main": "build/app.js",
