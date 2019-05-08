@@ -52,7 +52,7 @@ export default class Shell {
         });
     }
     static async spawnString(cmd: string) {
-        return (await Shell.spawn(cmd)).toString()
+        return (await Shell.spawn(cmd)).toString().trim()
     }
     static async processSpawn(cmd: string | string[], msg: string, onErrorExit = false) {
         if (typeof cmd === 'string') {

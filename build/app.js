@@ -61,7 +61,7 @@ class Shell {
     }
     static spawnString(cmd) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield Shell.spawn(cmd)).toString();
+            return (yield Shell.spawn(cmd)).toString().trim();
         });
     }
     static processSpawn(cmd, msg, onErrorExit = false) {
